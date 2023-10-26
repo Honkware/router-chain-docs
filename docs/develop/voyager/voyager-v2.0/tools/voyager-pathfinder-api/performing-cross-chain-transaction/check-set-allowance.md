@@ -6,8 +6,7 @@ sidebar_position: 2
 Prior to initiating a transaction using any web3 library (ethers.js or web3.js), users must make sure that Router's transfer or swap contract has the appropriate permissions to use the requested asset in their wallet. You can achieve this via the following piece of code:
 
 :::note
-Router Protocol enables native asset transfers/swaps via their wrapped versions. Therefore, users need to provide an allowance to the wrapped version of the native asset being transferred/swapped.
-Native asset and its wrapped asset info is given [here](../../../supported-chains-tokens).
+For using native assets you can use the addresses given [here](../../../supported-chains-tokens).
 :::
 
 ```ts

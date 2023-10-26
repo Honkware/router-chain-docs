@@ -33,10 +33,4 @@ const fetchStatus = async (srcTxHash) => {
     });
 }
 
-const main = async () => {
-
-  await fetchStatus();
-}
-
-main()
 ```

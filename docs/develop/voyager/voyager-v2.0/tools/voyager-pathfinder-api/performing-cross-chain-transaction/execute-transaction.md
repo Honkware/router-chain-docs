@@ -10,7 +10,7 @@ import { ethers } from 'ethers'
 
 const PATH_FINDER_API_URL = "https://api.pf.testnet.routerprotocol.com/api"
 
-const getTransaction = async (params, quoteData) => {
+const getTransaction = async (quoteData) => {
     const endpoint = "v2/transaction"
     const txDataUrl = `${PATH_FINDER_API_URL}/${endpoint}`
 
@@ -19,12 +19,9 @@ const getTransaction = async (params, quoteData) => {
     try {
         const res = await axios.post(txDataUrl, {
             ...quoteData,
-            fromTokenAddress: params.fromTokenAddress,
-            toTokenAddress: params.toTokenAddress,
             slippageTolerance: 0.5,
             senderAddress: "<sender-address>",
             receiverAddress: "<receiver-address>",
-            widgetId: params.widgetId
         })
         return res.data;
     } catch (e) {
@@ -40,7 +37,7 @@ const main = async () => {
     const wallet = new ethers.Wallet("YOUR_PRIVATE_KEY", provider)
     
     // get transaction data via Transaction endpoint
-    const txResponse = await getTransaction(params, quoteData); // params have been defined in step 1 and quoteData has also been fetched in step 1
+    const txResponse = await getTransaction(quoteData); // params have been defined in step 1 and quoteData has also been fetched in step 1
 
     // sending the transaction using the data given by the pathfinder
     const tx = await wallet.sendTransaction(txResponse.txn.execution)

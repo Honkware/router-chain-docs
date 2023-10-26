@@ -4,7 +4,7 @@ sidebar_position: 1
 ---
 
 If all the required parameters are valid, the Pathfinder API will always return a path.
-For transferring native assets, just use the native token addresses given [here](../../../supported-chains-tokens). However, you need to provide allowance for the wrapped version of the native asset to perform their transfers/swaps.
+For transferring native assets, just use the native token addresses given [here](../../../supported-chains-tokens).
 
 :::info
 You can find the API information [**here**](../../../../../../api/?v=PATHFINDER).
@@ -14,6 +14,15 @@ You can find the API information [**here**](../../../../../../api/?v=PATHFINDER)
 import axios from "axios"
 
 const PATH_FINDER_API_URL = "https://api.pf.testnet.routerprotocol.com/api"
+
+const params = {
+    'fromTokenAddress': '0x22bAA8b6cdd31a0C5D1035d6e72043f4Ce6aF054',
+    'toTokenAddress': '0xb452b513552aa0B57c4b1C9372eFEa78024e5936',
+    'amount': '44000000000000', // source amount
+    'fromTokenChainId': "80001", // Mumbai
+    'toTokenChainId': "43113", // Fuji
+    'widgetId': 0, // (Optional) - For any partnership, get your unique widget id by contacting us on Telegram
+}
 
 // calling the pathfinder api using axios
 const getQuote = async (params) => {
@@ -30,23 +39,6 @@ const getQuote = async (params) => {
     }    
 }
 
-const main = async () => {
-    const params = {
-        'fromTokenAddress': '0x22bAA8b6cdd31a0C5D1035d6e72043f4Ce6aF054',
-        'toTokenAddress': '0xb452b513552aa0B57c4b1C9372eFEa78024e5936',
-        'amount': '10000000000000000000', // source amount
-        'fromTokenChainId': "80001", // Mumbai
-        'toTokenChainId': "43113", // Fuji
-        'widgetId': 0, // get your unique wdiget id by contacting us on Telegram
-    }
-    
-    const quoteData = await getQuote(params);
-
-    console.log(quoteData)
-}
-
-
-main()
 ```
 
 :::info

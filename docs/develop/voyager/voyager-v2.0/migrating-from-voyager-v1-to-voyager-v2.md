@@ -25,7 +25,7 @@ const params = {
         'userAddress': 'YOUR_WALLET_ADDRESS',
         'feeTokenAddress': '0x16ECCfDbb4eE1A85A33f3A9B21175Cd7Ae753dB4', // ROUTE on Polygon
         'slippageTolerance': 2,
-        'widgetId': 24, // get your unique wdiget id by contacting us on Telegram
+        'widgetId': 0, // get your unique wdiget id by contacting us on Telegram
     }
 
 
@@ -42,7 +42,7 @@ const params = {
         'amount': '10000000', // 10 USDC (USDC token contract on Polygon has 6 decimal places)
         'fromTokenChainId': 137, // Polygon
         'toTokenChainId': 250, // Fantom
-        'widgetId': 24, // get your unique wdiget id by contacting us on Telegram
+        'widgetId': 0, // (Optional) for production get your unique widget id by contacting us on Telegram
     }
 ```
 
@@ -53,7 +53,7 @@ import { ethers } from 'ethers'
 
 const PATH_FINDER_API_URL = "https://api.pf.testnet.routerprotocol.com/api"
 
-const getTransaction = async (params, quoteData) => {
+const getTransaction = async (quoteData) => {
     const endpoint = "v2/transaction"
     const txDataUrl = `${PATH_FINDER_API_URL}/${endpoint}`
 
@@ -62,12 +62,9 @@ const getTransaction = async (params, quoteData) => {
     try {
         const res = await axios.post(txDataUrl, {
             ...quoteData,
-            fromTokenAddress: params.fromTokenAddress,
-            toTokenAddress: params.toTokenAddress,
             slippageTolerance: 0.5,
             senderAddress: "<sender-address>",
             receiverAddress: "<receiver-address>",
-            widgetId: params.widgetId
         })
         return res.data;
     } catch (e) {
@@ -83,13 +80,13 @@ const main = async () => {
         'amount': '10000000', // 10 USDC (USDC token contract on Polygon has 6 decimal places)
         'fromTokenChainId': 137, // Polygon
         'toTokenChainId': 250, // Fantom
-        'widgetId': 24, // get your unique wdiget id by contacting us on Telegram
+        'widgetId': 0, // get your unique wdiget id by contacting us on Telegram
     }
 
     const quoteData = await getQuote(params);
 
     // get transaction data via the Transaction endpoint
-    const txResponse = await getTransaction(params, quoteData); 
+    const txResponse = await getTransaction(quoteData); 
 
     // sending the transaction using the data given by the pathfinder
     const tx = await wallet.sendTransaction(txResponse.txn.execution)
